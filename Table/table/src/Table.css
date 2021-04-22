@@ -1,0 +1,9 @@
+th {
+  background-color: bisque;
+}
+
+th:hover {
+  cursor: pointer;
+  background-color: grey;
+  color: white;
+}
