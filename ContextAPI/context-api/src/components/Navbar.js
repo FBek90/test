@@ -5,7 +5,7 @@ import { MovieContext } from './Context'
 import { Container, NavItems } from './NavbarStyle'
 
 export default () => {
-  const [movies, setMovies] = useContext(MovieContext)
+  const { movies } = useContext(MovieContext)
 
   return (
     <Container>

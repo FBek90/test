@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { Input, Button } from './AddMovieStyle'
 import {
   MovieContainer,
   Span,
@@ -6,42 +7,57 @@ import {
   H1,
   SubContainer,
 } from './MoviesStyle'
-import { BsFillTrashFill } from 'react-icons/bs'
 import { MovieContext } from './Context'
 
 export default () => {
-  const [movies, setMovies] = useContext(MovieContext)
+  const { movies, setMovies, editItem, editTask } = useContext(MovieContext)
   const [name, setName] = useState('')
   const [year, setYear] = useState('')
+  // console.log(editItem.name, editItem.year, editItem.id)
 
+  // console.log(editItem.id)
   const addMovie = () => {
-    if (name !== '' && year.length >= 4) {
+    // if (name !== '' && year.length >= 4) {
+    if (editItem === null) {
       setMovies([...movies, { id: movies.length + 1, name, year }])
       setName('')
       setYear('')
-    } else if (year.length < 4 && year.length !== 0) {
-      alert('Movie did not produced this year')
     } else {
-      alert('Please input movie and year')
+      // console.log(name, year, editItem.id)
+
+      editTask(name, year, editItem.id)
     }
   }
+
+  useEffect(() => {
+    // console.log('editItem', editItem)
+    if (editItem !== null) {
+      setName(editItem.name)
+      setYear(editItem.year)
+    } else {
+      setName('')
+      setYear('')
+    }
+  }, [editItem])
   return (
     <div>
-      <input
+      <Input
         onChange={(e) => setName(e.target.value)}
         type='text'
         value={name}
         id=''
         placeholder='Add Movie Name'
       />
-      <input
+      <Input
         onChange={(e) => setYear(e.target.value)}
         type='number'
         value={year}
         id=''
         placeholder='Add Year'
       />
-      <button onClick={addMovie}>Add Movie</button>
+      <Button disabled={name === '' || year === ''} onClick={addMovie}>
+        {editItem ? 'Edit Movie' : 'Add Movie'}
+      </Button>
     </div>
   )
 }

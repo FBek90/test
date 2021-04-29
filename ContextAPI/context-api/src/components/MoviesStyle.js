@@ -9,7 +9,7 @@ export const MovieContainer = styled.div`
   border: 1px solid black;
   margin: 0 auto;
   margin-top: 10px;
-  width: 500px;
+  width: 600px;
   border-radius: 10px;
 `
 export const SubContainer = styled.div`

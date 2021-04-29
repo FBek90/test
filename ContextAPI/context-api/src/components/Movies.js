@@ -7,15 +7,17 @@ import {
   SubContainer,
 } from './MoviesStyle'
 import { BsFillTrashFill } from 'react-icons/bs'
+import { AiFillEdit } from 'react-icons/ai'
 import { MovieContext } from './Context'
 
 export default () => {
-  const [movies, setMovies] = useContext(MovieContext)
-
+  const { movies, setMovies, onEdit } = useContext(MovieContext)
+  // console.log(typeof movies)
   const onDelete = (id) => {
     let newMovies = movies.filter((movie) => movie.id !== id)
     setMovies(newMovies)
   }
+
   return (
     <div>
       {movies.map((value) => {
@@ -28,6 +30,7 @@ export default () => {
                 <BsFillTrashFill
                   onClick={() => onDelete(value.id)}
                 ></BsFillTrashFill>
+                <AiFillEdit onClick={() => onEdit(value.id)}></AiFillEdit>
               </BtnContainer>
             </H1>
           </MovieContainer>
