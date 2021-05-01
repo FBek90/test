@@ -1,11 +1,7 @@
-import './App.css'
-import Array from './Array'
+import React from 'react'
+import Table from './Table'
 function App() {
-  return (
-    <div className='App'>
-      <Array />
-    </div>
-  )
+  return <Table />
 }
 
 export default App

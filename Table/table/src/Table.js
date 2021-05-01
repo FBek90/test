@@ -1,26 +1,45 @@
-import React from 'react'
-import './Table.css'
+import React, { useState, useEffect } from 'react'
+import { Container, Item } from './TableStyle'
 
-const table = (props) => {
-  const { val1 } = props
-  // console.log(typeof val1)
-  const salom = () => {
-    alert('salom')
+export default () => {
+  const [state, setState] = useState([])
+
+  useEffect(() => {
+    Reset()
+  }, [])
+
+  const Reset = () => {
+    setState([])
+    for (let i = 1; i <= 100; i++) {
+      setState((prev) => {
+        return [...prev, i]
+      })
+    }
+  }
+  const onClick = (value) => {
+    let newData = []
+    state.map((e) => {
+      e % value === 0
+        ? (newData = [...newData, '*'])
+        : (newData = [...newData, e])
+    })
+    setState(newData)
   }
   return (
-    <tr>
-      <th onClick={salom}>{val1.numb}</th>
-      <th>{val1.numb2}</th>
-      <th>{val1.numb3}</th>
-      <th>{val1.numb4}</th>
-      <th>{val1.numb5}</th>
-      <th>{val1.numb6}</th>
-      <th>{val1.numb7}</th>
-      <th>{val1.numb8}</th>
-      <th>{val1.numb9}</th>
-      <th>{val1.numb10}</th>
-    </tr>
+    <Container>
+      {state.map((value, index) => {
+        return (
+          <Item
+            bcl={typeof value !== 'number'}
+            onClick={() => {
+              onClick(value)
+            }}
+          >
+            {value}
+          </Item>
+        )
+      })}
+      <button onClick={Reset}>RESET</button>
+    </Container>
   )
 }
-
-export default table
